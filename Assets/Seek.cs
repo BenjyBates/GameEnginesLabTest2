@@ -6,33 +6,27 @@ using UnityEngine;
 
 public class Seek : SteeringBehaviour
 {
-    public GameObject targetGameObject = null;
+
+    private GameObject _ball;
 
     public Vector3 target = Vector3.zero;
-
-    public void OnDrawGizmos()
-    {
-        if (isActiveAndEnabled && Application.isPlaying)
-        {
-            Gizmos.color = Color.cyan;
-            if (targetGameObject != null)
-            {
-                target = targetGameObject.transform.position;
-            }
-            Gizmos.DrawLine(transform.position, target);
-        }
-    }
 
     public override Vector3 Calculate()
     {
         return boid.SeekForce(target);
     }
 
+    private void Start()
+    {
+
+    }
+
     public void Update()
     {
-        if (targetGameObject != null)
+        if (BallManager.ballThrown == true)
         {
-            target = targetGameObject.transform.position;
+            _ball = GameObject.FindGameObjectWithTag("Ball");
+            target = _ball.transform.position;
         }
     }
 }

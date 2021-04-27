@@ -14,10 +14,20 @@ public class Throw : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        if (Input.GetButton("Fire2") && Time.time >= nextTimeToThrow)
+        if(BallManager.ballThrown == false)
         {
-            nextTimeToThrow = Time.time + 1 / ballNo;
-            Shoot();
+            if (Input.GetButton("Fire2") && Time.time >= nextTimeToThrow)
+            {
+                nextTimeToThrow = Time.time + 1 / ballNo;
+                Shoot();
+                BallManager.ballThrown = true;
+                DogStates._state = DogStates.DogBrain.SEEK;
+
+            }
+        }
+        else
+        {
+
         }
     }
     public void Shoot()
